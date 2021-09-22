@@ -1,4 +1,4 @@
-# vueproject
+# Github pages
 
 ## Project setup
 ```
@@ -22,3 +22,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Goals
+Learning about deploying a vue project on github pages.
+
+This site is hosted on https://waijie666.github.io/github-pages
