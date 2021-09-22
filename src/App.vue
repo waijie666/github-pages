@@ -37,6 +37,13 @@ export default {
   mounted() {
 
   },
+  created () {
+    if (sessionStorage.redirect) {
+        const redirect = sessionStorage.redirect
+        delete sessionStorage.redirect
+        this.$router.push(redirect)
+    }
+  },
   computed: {
     currentRoutes() {
       return this.$router.options.routes
