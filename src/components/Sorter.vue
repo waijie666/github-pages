@@ -3,7 +3,7 @@
     <div class="instructions">
     <img :src=imageProp style="max-width: 100%">
     <b><h1>Welcome to the {{sorterNameProp}} Sorter!</h1></b>Pick which character you prefer in each battle to get an accurate list of your favourites.<br />Have fun, choose wisely and take your time!<br /><br />Note: Hitting 'skip' or 'I like both' frequently will negatively affect your results.
-    <div id="battleNumber"><b>Battle #{{numQuestion}}<br>{{battlePercent}}% sorted.</b></div>
+    <div id="battleNumber"><b>Battle #{{numQuestion}} / {{totalSize}}<br>{{battlePercent}}% sorted.</b></div>
     </div>
     <table id="mainTable" align="center">
     <tbody>
