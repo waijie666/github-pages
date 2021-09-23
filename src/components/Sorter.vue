@@ -2,7 +2,7 @@
   <div v-if="pageloadcomplete">
     <div class="instructions">
     <img :src=imageProp style="max-width: 100%">
-    <b><h1>Welcome to the {{sorterNameProp}} Idol Sorter!</h1></b>Pick which idol you prefer in each battle to get an accurate list of your favourites from the show.<br />Have fun, choose wisely and take your time!<br /><br />Note: Hitting 'skip' or 'I like both' frequently will negatively affect your results.
+    <b><h1>Welcome to the {{sorterNameProp}} Sorter!</h1></b>Pick which character you prefer in each battle to get an accurate list of your favourites.<br />Have fun, choose wisely and take your time!<br /><br />Note: Hitting 'skip' or 'I like both' frequently will negatively affect your results.
     <div id="battleNumber"><b>Battle #{{numQuestion}}<br>{{battlePercent}}% sorted.</b></div>
     </div>
     <table id="mainTable" align="center">
@@ -10,7 +10,7 @@
     <tr>
       <td id="leftField" @click="if(!finishFlag) sortList(-1);" rowspan="2" style="text-align:center;">
         <div style="display: grid" v-if="namMember[leftindex]">
-        <div><img crossOrigin="anonymous" style="width:100px" v-bind:src="namMember[leftindex].image" /></div>
+        <div><img style="width:100px" v-bind:src="namMember[leftindex].image" /></div>
         <div>{{ namMember[leftindex].name }}</div>
         </div>       
       </td>
@@ -19,7 +19,7 @@
       </td>
       <td id="rightField" @click="if(!finishFlag) sortList(1);" rowspan="2" style="text-align:center;">
         <div style="display: grid" v-if="namMember[rightindex]">
-        <div><img crossOrigin="anonymous" style="width:100px" v-bind:src="namMember[rightindex].image"  /></div>
+        <div><img style="width:100px" v-bind:src="namMember[rightindex].image"  /></div>
         <div>{{ namMember[rightindex].name }}</div>
         </div>
       </td>
@@ -37,16 +37,17 @@
     <p />
     <div>
       <button @click="initList">Filter</button>
-      | <button @click="loadResult">Load Previous Results</button>
+      <button @click="loadResult">Load Previous Results</button>
+      Limit maximum number of characters: <input v-model="maxSize" size="5"/>
     </div>
     <br />
     <div id="resultField" style="text-align: center;" v-if="finishFlag">
       <table style="border-radius:10px; padding:10px 15px 10px 0px; box-shadow: 1px 1px 4px #d96991, -1px -1px 4px #d96991; width:90%; max-width:550px; font-size:18px; background-color:#fff; line-height:130%; margin-left:auto; margin-right:auto; border-collapse: separate; border: 0px solid #4A86C1;" align="center" ><tr><td>
         <table id="resulttable" style="border-radius:10px; width:100%; padding:5px 5px 5px 5px; border-collapse: separate;">
-        <tr style="background-color:#fff"><td colspan="2" style="vertical-align:middle; background-color:#fff;padding-bottom:10px;font-size:140%;height:50px;">My {{sorterNameProp}} Idol Ranking</td></tr>
+        <tr style="background-color:#fff"><td colspan="2" style="vertical-align:middle; background-color:#fff;padding-bottom:10px;font-size:140%;height:50px;">My {{sorterNameProp}} Ranking</td></tr>
         <tr style="height:40px; background-color:#fff"><td style="background-color:#fff; text-align:center;">Rank</td><td style="background-color:#fff; text-align:center;">Idol</td></tr>
         <template v-for="member in resultMember" :key="member">
-          <tr style="background-color:#fff; box-sizing:border-box; margin-right:5px"><td style="color: #4A86C1; text-align:center; background-color:#fff">{{member.ranking}}</td><td class="idolname" style="border:1px solid #ccc; color: #4A86C1; padding:5px; background-color:#fff"><div style="display: grid; grid-template-rows: auto; grid-template-columns: 3fr 1fr;"><div style="margin: auto;">{{member.name}}</div><div><img crossOrigin="anonymous" style="width:100px" v-bind:src="member.image" /></div></div></td></tr>
+          <tr style="background-color:#fff; box-sizing:border-box; margin-right:5px"><td style="color: #4A86C1; text-align:center; background-color:#fff">{{member.ranking}}</td><td class="idolname" style="border:1px solid #ccc; color: #4A86C1; padding:5px; background-color:#fff"><div style="display: grid; grid-template-rows: auto; grid-template-columns: 3fr 1fr;"><div style="margin: auto;">{{member.name}}</div><div><img style="width:100px" v-bind:src="member.image" /></div></div></td></tr>
         </template>
         <tr><td colspan=2>Results on {{new Date(resultDate).toLocaleString()}} </td></tr>
         </table></td></tr><tr><td><button type="button" class="btn btn-primary" @click="generateImage" style="margin: auto">Save Results as Image</button></td></tr></table>
@@ -233,6 +234,7 @@ export default {
       leftindex: 0,
       rightindex: 0,
       resultDate: 0,
+      maxSize :"",
       AllDictionaryObject: this.dictionaryObjectProp
     }
   },
@@ -268,6 +270,7 @@ export default {
             array[j] = temp;
         }
       }
+
       this.namMember = new Array()
       this.lstMember = new Array()
       this.parent = new Array()
@@ -280,6 +283,12 @@ export default {
         }
       }
       shuffleArray(this.namMember)
+
+      var arraySize = parseInt(this.maxSize)
+      if (arraySize && arraySize < this.namMember.length)
+      {
+        this.namMember = this.namMember.slice(0, arraySize)
+      }
       var n = 0;
       var mid;
       var i;
