@@ -1,7 +1,9 @@
 <template>
   <div id="nav">
     <template v-for="route in currentRoutes" :key="route.name">
-      <router-link :to="route.path">{{ route.name }}</router-link> |
+      <template v-if="!route.routerLinkExcept">
+        <router-link :to="route.path">{{ route.name }}</router-link> | 
+      </template>
     </template>
   </div>
   <router-view/>
