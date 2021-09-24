@@ -31,12 +31,6 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
-    - name: Replace package json version with git commit id (To prevent javascript caching after redeploy)
-      run: |
-        TEMPFILE=$(mktemp)
-        GIT_COMMIT_ID=$(git log --format="%H" -n 1)
-        jq --arg GIT_COMMIT_ID $GIT_COMMIT_ID '.version = [$GIT_COMMIT_ID]' package.json > $TEMPFILE && mv $TEMPFILE package.json 
-        cat package.json
     - run: npm install
     - run: npm run build --if-present
     - name: Deploy
