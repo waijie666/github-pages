@@ -13,11 +13,40 @@
             {{todo.text}}
         </li>
     </ol>
+    <todo-list :itemsProp="['Attribute0', 'Attribute1', 'Attribute2']" >
+      <template v-slot:default="slotProps">
+        <i class="fas fa-check"></i>
+        <span class="green">{{ slotProps.item }}</span>
+        <span class="green">{{ slotProps.index }}</span>
+      </template>
+    </todo-list>
 </template>
 
 <script>
+
+const slotComponent = {
+    props: {
+      itemsProp : { default: ["Eat Apple", "Eat Orange"]}
+    },
+    data() {
+        return {
+            items: this.itemsProp
+        }
+    },     
+    template: `
+        <ul>
+            <li v-for="(item, index) in items">
+                <slot :item=item></slot>
+            </li>
+        </ul>`
+    
+}
+
 export default {
     name: 'Counter',
+    components: {
+        "todo-list": slotComponent
+    },
     data()  {
         return  {
             counter: 0,
