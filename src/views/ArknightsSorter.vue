@@ -8,7 +8,7 @@ import Sorter from '@/components/Sorter.vue'
 import ArknightsObject from '@/data/arknights_operator.json'
 
 export default {
-  name: 'AikatsuSorter',
+  name: 'ArknightsSorter',
   components: {
     Sorter
   },

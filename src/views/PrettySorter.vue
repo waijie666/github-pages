@@ -7,7 +7,7 @@
 import Sorter from '@/components/Sorter.vue'
 
 export default {
-  name: 'AikatsuSorter',
+  name: 'PrettySorter',
   components: {
     Sorter
   },

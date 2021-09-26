@@ -18,6 +18,8 @@
         <i class="fas fa-check"></i>
         <span class="green">{{ slotProps.item }}</span>
         <span class="green">{{ slotProps.index }}</span>
+        <span class="green">{{ slotProps.apple }}</span>
+        {{ slotProps.index+slotProps.apple }}
       </template>
     </todo-list>
 </template>
@@ -36,7 +38,7 @@ const slotComponent = {
     template: `
         <ul>
             <li v-for="(item, index) in items">
-                <slot :item=item></slot>
+                <slot :item=item :index=index :apple=index+1></slot>
             </li>
         </ul>`
     
