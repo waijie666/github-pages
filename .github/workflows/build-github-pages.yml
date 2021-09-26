@@ -32,7 +32,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-
     - run: npm install
-    - run: npm run build --if-present
+    - run: |
+        export VUE_APP_GIT_COMMIT_ID=$(git log --format="%H" -n 1)
+        npm run build --if-present
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with: 
